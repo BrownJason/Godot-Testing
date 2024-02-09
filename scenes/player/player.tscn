@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://cexfal8mi8hae"]
+
+[ext_resource type="Script" path="res://scenes/components/health/health_component.gd" id="1_6qcoi"]
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_uxxst"]
+[ext_resource type="Script" path="res://scenes/components/damage/damage_component.gd" id="2_w4tjt"]
+[ext_resource type="Texture2D" uid="uid://ct13hq0o4y81d" path="res://assest/player-single.png" id="3_mwavu"]
+[ext_resource type="Script" path="res://scenes/components/movement/movement_component.gd" id="5_tmp4o"]
+[ext_resource type="PackedScene" uid="uid://ci233y1oi85ox" path="res://scenes/components/hit_box/hit_box_component.tscn" id="6_cvooe"]
+[ext_resource type="Script" path="res://scenes/player/facing_dir.gd" id="6_rp8as"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dtts4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plbne"]
+size = Vector2(9, 20)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_comp", "damage_comp", "move_comp")]
+collision_layer = 2
+script = ExtResource("1_uxxst")
+health_comp = NodePath("HealthComponent")
+damage_comp = NodePath("DamageComponent")
+move_comp = NodePath("MovementComponent")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("1_6qcoi")
+_max_health = 100.0
+_can_heal_on_level_up = true
+
+[node name="DamageComponent" type="Node" parent="." node_paths=PackedStringArray("cooldown_timer")]
+script = ExtResource("2_w4tjt")
+_damage_amount = 10.0
+cooldown_timer = NodePath("CooldownTimer")
+
+[node name="CooldownTimer" type="Timer" parent="DamageComponent"]
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("5_tmp4o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_mwavu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dtts4")
+
+[node name="HitBoxComponent" parent="." node_paths=PackedStringArray("player", "facing_collision_dir") instance=ExtResource("6_cvooe")]
+player = NodePath("..")
+facing_collision_dir = NodePath("FacingCollisionShape")
+
+[node name="FacingCollisionShape" type="CollisionShape2D" parent="HitBoxComponent"]
+position = Vector2(17, 0)
+shape = SubResource("RectangleShape2D_plbne")
+script = ExtResource("6_rp8as")
+facing_left_dir = Vector2(-17, 0)
+facing_right_dir = Vector2(17, 0)
+
+[connection signal="body_entered" from="HitBoxComponent" to="." method="_on_hit_box_component_body_entered"]
