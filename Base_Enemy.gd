@@ -8,6 +8,7 @@ extends CharacterBody2D
 var player: Player
 @onready var sprite_2d = $Sprite2D
 @onready var damage_label = $DamageLabel
+var body_within_attack_range: bool = false
 
 signal facing_dir_changed(facing_right: bool)
 
@@ -17,15 +18,19 @@ func _ready():
 
 func _process(delta):
 	velocity = Vector2.ZERO
-	if player:
+	if player and global_position.distance_to(player.global_position) > 40:
 		move_comp.enemy_chase(self, player, delta)
 		velocity.y = 0
+		
 	
 	if velocity.x != 0 and !player:
 		move_toward(velocity.x, 0.0, delta)
 	
 	move_and_slide()
 	update_facing_dir()
+	
+	if body_within_attack_range and player != null and damage_comp._can_deal_damage:
+		damage_comp.deal_damage_on_hit(player)
 
 func update_facing_dir():
 	if velocity.x < 0:
@@ -46,6 +51,9 @@ func _on_area_2d_body_exited(body):
 	player = null
 
 func _on_hit_box_body_entered(body):
-	print(body)
 	if body == player:
-		damage_comp.deal_damage_on_hit(body)
+		body_within_attack_range = true
+
+func _on_hit_box_body_exited(body):
+	if body == player:
+		body_within_attack_range = false

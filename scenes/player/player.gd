@@ -23,8 +23,10 @@ func _physics_process(delta):
 		
 	move_comp.player_movement(delta, self)
 	
-	if enemy and Input.is_action_just_pressed("attack"):
+	if enemy != null and Input.is_action_just_pressed("attack"):
 		damage_comp.deal_damage_on_hit(enemy)
+	elif Input.is_action_just_pressed("attack"):
+		pass
 	
 	move_and_slide()
 	update_facing_dir()
