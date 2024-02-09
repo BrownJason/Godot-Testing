@@ -70,7 +70,7 @@ jobs:
           name: game_windows
           path: game_windows.zip
   release:
-    needs: [web, linux, windows]
+    needs: [linux, windows]
     runs-on: ubuntu-latest
     permissions:
       contents: write
