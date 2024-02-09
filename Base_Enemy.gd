@@ -29,7 +29,7 @@ func _process(delta):
 	move_and_slide()
 	update_facing_dir()
 	
-	if body_within_attack_range and player != null and damage_comp._can_deal_damage:
+	if body_within_attack_range and player != null:
 		damage_comp.deal_damage_on_hit(player)
 
 func update_facing_dir():
