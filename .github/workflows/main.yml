@@ -116,7 +116,7 @@ jobs:
           body: |
             Release notes for ${{env.GitVersion_MajorMinorPatch}}
           draft: false
-          prerelease: false
+          prerelease: true
 
       - name: Upload Linux Release Asset
         id: upload-linux-release-asset
