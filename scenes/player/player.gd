@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var hit_box_component = $HitBoxComponent
 
 signal facing_dir_changed(facing_right: bool)
+signal adjust_ui_health(health: float)
 
 var enemy= null
 # Called when the node enters the scene tree for the first time.
@@ -38,3 +39,7 @@ func update_facing_dir():
 
 func _on_hit_box_component_body_entered(body):
 	enemy = body
+
+func take_damage(damage):
+	health_comp.take_damage(damage)
+	emit_signal("adjust_ui_health", health_comp._health)

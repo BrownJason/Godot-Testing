@@ -22,6 +22,7 @@ func _ready():
 
 # Entity takes damage
 func take_damage(damage: float)  -> void:
+	print(damage)
 	_health -= damage
 	if _health <= 0:
 		die()

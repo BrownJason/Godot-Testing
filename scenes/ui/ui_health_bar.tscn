@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://c73nrwhn1v4jr"]
+
+[ext_resource type="Script" path="res://scenes/ui/ui_health_bar.gd" id="1_cvtba"]
+[ext_resource type="FontFile" uid="uid://c7drv0ctoigoh" path="res://assest/LuckiestGuy-Regular.ttf" id="2_ell18"]
+
+[sub_resource type="Gradient" id="Gradient_blutf"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0, 0, 0.729412)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3xptv"]
+gradient = SubResource("Gradient_blutf")
+width = 200
+
+[sub_resource type="Gradient" id="Gradient_1ylq7"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2yv0v"]
+gradient = SubResource("Gradient_1ylq7")
+width = 200
+
+[sub_resource type="LabelSettings" id="LabelSettings_r4mya"]
+font = ExtResource("2_ell18")
+font_size = 24
+shadow_color = Color(0.0509804, 0.0509804, 0.0509804, 0.611765)
+
+[node name="UIHealthBar" type="Control"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cvtba")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 200.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer"]
+layout_mode = 2
+nine_patch_stretch = true
+stretch_margin_top = 25
+texture_under = SubResource("GradientTexture1D_3xptv")
+texture_progress = SubResource("GradientTexture1D_2yv0v")
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 3.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "00/00"
+label_settings = SubResource("LabelSettings_r4mya")
+horizontal_alignment = 1
+vertical_alignment = 2

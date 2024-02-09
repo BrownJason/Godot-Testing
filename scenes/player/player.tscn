@@ -13,7 +13,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_plbne"]
 size = Vector2(9, 20)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_comp", "damage_comp", "move_comp")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_comp", "damage_comp", "move_comp") groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_uxxst")
 health_comp = NodePath("HealthComponent")
