@@ -7,19 +7,37 @@ extends CharacterBody2D
 
 @onready var sprite_2d = $Sprite2D
 @onready var hit_box_component = $HitBoxComponent
+@onready var animation_player = $AnimationPlayer
+@onready var hurt_timer = $HurtTimer
+@onready var facing_collision_shape = $HitBoxComponent/FacingCollisionShape
 
 signal facing_dir_changed(facing_right: bool)
 signal adjust_ui_health(health: float)
 
 var enemy= null
+var is_hurt: bool = false
+var can_double_jump: bool = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	emit_signal("adjust_ui_health", health_comp._health)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y += move_comp.JUMP_VELOCITY
+		can_double_jump = true
+		
+	if !is_on_floor():
+		if Input.is_action_just_pressed("jump") and can_double_jump:
+			velocity.y = move_comp.JUMP_VELOCITY
+			can_double_jump = false
+		else:
+			velocity.y += move_comp.gravity * delta
+	
+	if velocity.y > 0:
+		animation_player.play("fall")
+	elif velocity.y < 0:
+		animation_player.play("jump")
 		
 	move_comp.player_movement(delta, self)
 	
@@ -27,6 +45,11 @@ func _physics_process(delta):
 		damage_comp.deal_damage_on_hit(enemy)
 	elif Input.is_action_just_pressed("attack"):
 		pass
+	
+	if velocity.x != 0 and is_on_floor():
+		animation_player.play("run")
+	elif is_on_floor() and !is_hurt:
+		animation_player.play("idle")
 	
 	move_and_slide()
 	update_facing_dir()
@@ -45,3 +68,17 @@ func _on_hit_box_component_body_entered(body):
 func take_damage(damage):
 	health_comp.take_damage(damage)
 	emit_signal("adjust_ui_health", health_comp._health)
+	animation_player.play("hurt")
+	hurt_timer.start()
+	is_hurt = true
+	facing_collision_shape.visible = false
+	set_physics_process(false)
+
+func _on_hurt_timer_timeout():
+	is_hurt = false
+	facing_collision_shape.visible = true
+	set_physics_process(true)
+
+func _on_hit_box_component_body_exited(body):
+	if body == enemy:
+		enemy = null

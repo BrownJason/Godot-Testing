@@ -7,6 +7,7 @@ extends CharacterBody2D
 
 var player: Player
 @onready var sprite_2d = $Sprite2D
+@onready var animation_player = $AnimationPlayer
 @onready var damage_label = $DamageLabel
 var body_within_attack_range: bool = false
 
@@ -18,13 +19,17 @@ func _ready():
 
 func _process(delta):
 	velocity = Vector2.ZERO
-	if player and global_position.distance_to(player.global_position) > 40:
+	if player and global_position.distance_to(player.global_position) > 60:
 		move_comp.enemy_chase(self, player, delta)
 		velocity.y = 0
-		
 	
 	if velocity.x != 0 and !player:
 		move_toward(velocity.x, 0.0, delta)
+		
+	if velocity.x != 0:
+		animation_player.play("move")
+	else:
+		animation_player.play("idle")
 	
 	move_and_slide()
 	update_facing_dir()
