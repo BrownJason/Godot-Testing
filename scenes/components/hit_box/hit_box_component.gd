@@ -8,10 +8,6 @@ extends Area2D
 func _ready():
 	player.connect("facing_dir_changed", _on_facing_collision_dir)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func _on_facing_collision_dir(facing_right):
 	if facing_right:
 		facing_collision_dir.position = facing_collision_dir.facing_right_dir
