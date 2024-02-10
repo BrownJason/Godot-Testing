@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://cexfal8mi8hae"]
+[gd_scene load_steps=18 format=3 uid="uid://cexfal8mi8hae"]
 
 [ext_resource type="Script" path="res://scenes/components/health/health_component.gd" id="1_6qcoi"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_uxxst"]
 [ext_resource type="Script" path="res://scenes/components/damage/damage_component.gd" id="2_w4tjt"]
 [ext_resource type="Texture2D" uid="uid://df4tgcwt8xmor" path="res://assest/player.png" id="5_fhfsk"]
+[ext_resource type="PackedScene" uid="uid://dfy0godf1pyn8" path="res://scenes/components/jump/jump_component.tscn" id="5_k10n1"]
 [ext_resource type="Script" path="res://scenes/components/movement/movement_component.gd" id="5_tmp4o"]
 [ext_resource type="PackedScene" uid="uid://ci233y1oi85ox" path="res://scenes/components/hit_box/hit_box_component.tscn" id="6_cvooe"]
 [ext_resource type="Script" path="res://scenes/player/facing_dir.gd" id="6_rp8as"]
@@ -125,13 +126,14 @@ _data = {
 "run": SubResource("Animation_6w88s")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_comp", "damage_comp", "move_comp") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_comp", "damage_comp", "move_comp", "jump_comp") groups=["Player"]]
 z_index = 1
 collision_layer = 2
 script = ExtResource("1_uxxst")
 health_comp = NodePath("HealthComponent")
 damage_comp = NodePath("DamageComponent")
 move_comp = NodePath("MovementComponent")
+jump_comp = NodePath("JumpComponent")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("1_6qcoi")
@@ -147,6 +149,8 @@ cooldown_timer = NodePath("CooldownTimer")
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("5_tmp4o")
+
+[node name="JumpComponent" parent="." instance=ExtResource("5_k10n1")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("5_fhfsk")
