@@ -16,51 +16,19 @@ signal adjust_ui_health(health: float)
 
 var enemy= null
 var is_hurt: bool = false
-var can_double_jump: bool = true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	emit_signal("adjust_ui_health", health_comp._health)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y += move_comp.JUMP_VELOCITY
-		can_double_jump = true
-		
-	if !is_on_floor():
-		if Input.is_action_just_pressed("jump") and can_double_jump:
-			velocity.y = move_comp.JUMP_VELOCITY
-			can_double_jump = false
-		else:
-			velocity.y += move_comp.gravity * delta
-	
-	if velocity.y > 0:
-		animation_player.play("fall")
-	elif velocity.y < 0:
-		animation_player.play("jump")
-		
-	move_comp.player_movement(delta, self)
+	move_comp.player_movement(delta, self, animation_player)
 	
 	if enemy != null and Input.is_action_just_pressed("attack"):
 		damage_comp.deal_damage_on_hit(enemy)
-	elif Input.is_action_just_pressed("attack"):
-		pass
-	
-	if velocity.x != 0 and is_on_floor():
-		animation_player.play("run")
-	elif is_on_floor() and !is_hurt:
-		animation_player.play("idle")
-	
+		
 	move_and_slide()
-	update_facing_dir()
-
-func update_facing_dir():
-	if velocity.x < 0:
-		sprite_2d.flip_h = true
-		emit_signal("facing_dir_changed", !sprite_2d.flip_h)
-	if velocity.x > 0:
-		sprite_2d.flip_h = false
-		emit_signal("facing_dir_changed", !sprite_2d.flip_h)
+	move_comp.update_facing_dir(self)
 
 func _on_hit_box_component_body_entered(body):
 	enemy = body
