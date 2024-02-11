@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://828dwgsmhknu"]
+[gd_scene load_steps=12 format=3 uid="uid://828dwgsmhknu"]
 
 [ext_resource type="PackedScene" uid="uid://csb2yi1ofxq81" path="res://scenes/base_entitys/base_enemy.tscn" id="1_w7bwq"]
 [ext_resource type="Script" path="res://scenes/enemies/snail.gd" id="2_x12ir"]
@@ -13,6 +13,59 @@ size = Vector2(321, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yfdo3"]
 size = Vector2(35, 20)
 
+[sub_resource type="Animation" id="Animation_kxac1"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_i7b77"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_totkd"]
+resource_name = "move"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6su3h"]
+_data = {
+"RESET": SubResource("Animation_i7b77"),
+"idle": SubResource("Animation_kxac1"),
+"move": SubResource("Animation_totkd")
+}
+
 [node name="Snail" instance=ExtResource("1_w7bwq")]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("2_x12ir")
@@ -20,6 +73,9 @@ script = ExtResource("2_x12ir")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_hdn64")
+
+[node name="AnimationComponent" parent="." index="4" node_paths=PackedStringArray("anim_player")]
+anim_player = NodePath("../AnimationPlayer")
 
 [node name="Sprite2D" parent="." index="5"]
 texture = ExtResource("3_r0a6j")
@@ -35,3 +91,9 @@ facing_collision_dir = NodePath("FacingCollisionShape")
 position = Vector2(1.5, 0)
 shape = SubResource("RectangleShape2D_yfdo3")
 script = ExtResource("4_nscx8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
+libraries = {
+"": SubResource("AnimationLibrary_6su3h")
+}
+autoplay = "idle"
