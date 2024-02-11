@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cexfal8mi8hae"]
+[gd_scene load_steps=24 format=3 uid="uid://cexfal8mi8hae"]
 
 [ext_resource type="Script" path="res://scenes/components/health/health_component.gd" id="1_6qcoi"]
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_uxxst"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ci233y1oi85ox" path="res://scenes/components/hit_box/hit_box_component.tscn" id="6_cvooe"]
 [ext_resource type="Script" path="res://scenes/player/facing_dir.gd" id="6_rp8as"]
 [ext_resource type="Script" path="res://scenes/components/advanced_jump/AdvancedJumpComponent.gd" id="8_ndq3x"]
+[ext_resource type="Script" path="res://scenes/components/attack/attack_component.gd" id="8_p3doh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_saekv"]
 radius = 7.0
@@ -136,9 +137,13 @@ tracks/0/keys = {
 "values": [9, 10]
 }
 
+[sub_resource type="Animation" id="Animation_yod0j"]
+resource_name = "attack"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4p0vh"]
 _data = {
 "RESET": SubResource("Animation_p2vcd"),
+"attack": SubResource("Animation_yod0j"),
 "crouch": SubResource("Animation_tmh3h"),
 "fall": SubResource("Animation_cqosl"),
 "hurt": SubResource("Animation_a0ueq"),
@@ -147,7 +152,7 @@ _data = {
 "run": SubResource("Animation_6w88s")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_comp", "damage_comp", "move_comp", "jump_comp", "grav_comp", "input_comp", "anim_comp") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_comp", "damage_comp", "move_comp", "jump_comp", "grav_comp", "input_comp", "anim_comp", "attack_comp") groups=["Player"]]
 z_index = 1
 collision_layer = 2
 collision_mask = 17
@@ -159,6 +164,7 @@ jump_comp = NodePath("AdvancedJumpComponent")
 grav_comp = NodePath("GravityComponent")
 input_comp = NodePath("InputComponent")
 anim_comp = NodePath("AnimationComponent")
+attack_comp = NodePath("AttackComponent")
 
 [node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("sprite", "anim_player")]
 script = ExtResource("2_6gojv")
@@ -189,6 +195,13 @@ ground_accel = 12.0
 ground_decel = 20.0
 air_accel = 12.0
 air_decel = 20.0
+
+[node name="AttackComponent" type="Node" parent="." node_paths=PackedStringArray("shoot_cooldown_timer")]
+script = ExtResource("8_p3doh")
+shoot_cooldown_timer = NodePath("ShootCooldownTimer")
+
+[node name="ShootCooldownTimer" type="Timer" parent="AttackComponent"]
+one_shot = true
 
 [node name="AdvancedJumpComponent" type="Node" parent="." node_paths=PackedStringArray("jump_buffer_timer", "coyote_timer")]
 script = ExtResource("8_ndq3x")

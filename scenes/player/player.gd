@@ -8,6 +8,7 @@ extends CharacterBody2D
 @export var grav_comp: GravityComponent
 @export var input_comp: InputComponent
 @export var anim_comp: AnimationComponent
+@export var attack_comp: AttackComponent
 
 @onready var sprite_2d = $Sprite2D
 @onready var cooldown_timer = $DamageComponent/CooldownTimer
@@ -39,8 +40,7 @@ func _physics_process(delta):
 		velocity = Vector2.ZERO
 	emit_signal("facing_dir_changed", !sprite_2d.flip_h)
 	
-	if enemy != null and input_comp.get_attack_input():
-		damage_comp.deal_damage_on_hit(enemy)
+	attack_comp.shoot_bullet(sprite_2d.flip_h, self)
 
 	move_and_slide()
 

@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://828dwgsmhknu"]
+[gd_scene load_steps=13 format=3 uid="uid://828dwgsmhknu"]
 
-[ext_resource type="PackedScene" uid="uid://csb2yi1ofxq81" path="res://scenes/base_entitys/base_enemy.tscn" id="1_w7bwq"]
+[ext_resource type="PackedScene" uid="uid://csb2yi1ofxq81" path="res://scenes/enemies/base_entitys/base_enemy.tscn" id="1_3a6ll"]
 [ext_resource type="Script" path="res://scenes/enemies/snail.gd" id="2_x12ir"]
 [ext_resource type="Texture2D" uid="uid://bh4gri7usnvtg" path="res://assest/snail.png" id="3_r0a6j"]
 [ext_resource type="Script" path="res://scenes/player/facing_dir.gd" id="4_nscx8"]
@@ -66,7 +66,10 @@ _data = {
 "move": SubResource("Animation_totkd")
 }
 
-[node name="Snail" instance=ExtResource("1_w7bwq")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oxj85"]
+size = Vector2(33.3333, 21.3333)
+
+[node name="Snail" instance=ExtResource("1_3a6ll")]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("2_x12ir")
 
@@ -97,3 +100,11 @@ libraries = {
 "": SubResource("AnimationLibrary_6su3h")
 }
 autoplay = "idle"
+
+[node name="HurtBox" type="Area2D" parent="." index="10"]
+collision_layer = 64
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(2, 4.76837e-07)
+shape = SubResource("RectangleShape2D_oxj85")
