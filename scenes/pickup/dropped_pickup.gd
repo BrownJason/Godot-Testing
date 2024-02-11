@@ -29,14 +29,13 @@ func _ready():
 	
 	var tween = create_tween()
 	tween.set_loops()
-	tween.tween_property(self,"position", Vector2(position.x, position.y - 10), 0.5)
-	tween.tween_property(self,"position", Vector2(position.x, position.y + 10), 0.5)
+	tween.tween_property(self,"position", Vector2(position.x, position.y - 5), 0.5)
+	tween.tween_property(self,"position", Vector2(position.x, position.y + 5), 0.5)
 
 func pick_random_pickup() -> PickupInfo:
 	return pickup_list[randi_range(0, pickup_list.size() - 1)]
 
 func _on_body_entered(body):
-	print(body)
 	if body is Player:
 		player = body
 		if pickup_dropped == coin:
@@ -48,4 +47,3 @@ func _on_body_entered(body):
 		
 func die():
 	queue_free()
-	

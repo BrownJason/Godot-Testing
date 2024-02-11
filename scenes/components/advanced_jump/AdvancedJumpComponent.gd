@@ -24,13 +24,26 @@ func handle_jump(body: CharacterBody2D, want_to_jump: bool, jump_released: bool)
 	
 	if is_allowed_to_jump(body, want_to_jump):
 		jump(body)
+		
 	
+	handle_wall_jump(body, want_to_jump)
 	handled_coyote_timer(body)
 	handle_jump_buffer(body, want_to_jump)
 	handle_variable_jump(body, jump_released)
 		
 	is_going_up = body.velocity.y < 0 and not body.is_on_floor()
 	last_frame_on_floor = body.is_on_floor()
+
+func handle_wall_jump(body: CharacterBody2D, want_to_jump: bool):
+	if body.is_on_wall_only():
+		body.velocity.y = 0
+		body.velocity.x = 0
+		if want_to_jump:
+			jump(body)
+			if Input.is_action_pressed("move_left"):
+				body.velocity.x -= 50
+			elif Input.is_action_pressed("move_right"):
+				body.velocity.x += 50
 
 func has_just_stepped_off_ledge(body: CharacterBody2D) -> bool:
 	return not body.is_on_floor() and last_frame_on_floor and not is_jumping

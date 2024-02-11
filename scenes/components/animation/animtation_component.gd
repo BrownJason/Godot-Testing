@@ -42,3 +42,9 @@ func handle_snail_move_animation(move_direction: float):
 		anim_player.play("move")
 	else:
 		anim_player.play("idle")
+
+func handle_courch_animation() -> bool:
+	if Input.is_action_pressed("crouch"):
+		anim_player.play("crouch")
+		return true
+	return false

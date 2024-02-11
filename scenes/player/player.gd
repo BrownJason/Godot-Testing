@@ -21,6 +21,7 @@ signal adjust_ui_health(health: float)
 
 var enemy= null
 var is_hurt: bool = false
+var is_crouching: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	emit_signal("adjust_ui_health", health_comp._health)
@@ -30,8 +31,12 @@ func _physics_process(delta):
 	grav_comp.handle_gravity(self, delta)
 	move_comp.player_movement(self, input_comp.input_horizontal)
 	jump_comp.handle_jump(self, input_comp.get_jump_input(), input_comp.released_jump())
-	anim_comp.handle_move_animation(input_comp.input_horizontal)
-	anim_comp.handle_jump_animation(jump_comp.is_going_up, grav_comp.is_falling)
+	is_crouching = anim_comp.handle_courch_animation()
+	if not is_crouching:
+		anim_comp.handle_move_animation(input_comp.input_horizontal)
+		anim_comp.handle_jump_animation(jump_comp.is_going_up, grav_comp.is_falling)
+	elif is_crouching and is_on_floor():
+		velocity = Vector2.ZERO
 	emit_signal("facing_dir_changed", !sprite_2d.flip_h)
 	
 	if enemy != null and input_comp.get_attack_input():

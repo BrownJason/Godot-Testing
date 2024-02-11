@@ -13,7 +13,6 @@ func _ready():
 	damage_label.max_value = health_comp._health
 
 func _process(delta):
-	move_comp.enemy_chase(self, player, delta)
 	anim_comp.handle_snail_move_animation(velocity.x)
 	
 	move_and_slide()
