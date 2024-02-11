@@ -44,6 +44,9 @@ func _physics_process(delta):
 	attack_comp.shoot_bullet(sprite_2d.flip_h, self)
 
 	move_and_slide()
+	
+	if position.y >= 1000:
+		get_tree().reload_current_scene()
 
 func _on_hit_box_component_body_entered(body):
 	enemy = body

@@ -3,7 +3,7 @@ extends Node
 
 var bullet: PackedScene = preload("res://scenes/bullet/bullet.tscn")
 
-@export var speed: float = 80.0
+@export var speed: float = 120.0
 @export var life_span: float = 10.0
 @export var shoot_cooldown_timer: Timer
 var can_shoot = true
