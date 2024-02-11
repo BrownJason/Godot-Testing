@@ -6,12 +6,16 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	call_deferred("setup")
+
+func setup():
 	player = get_tree().get_nodes_in_group("Player")[0]
+	
 	texture_progress_bar.value = player.health_comp._health
 	texture_progress_bar.max_value = player.health_comp._max_health
 	health_label.text = str(texture_progress_bar.value) + "/" + str(texture_progress_bar.max_value)
 	player.connect("adjust_ui_health", adjust_ui_health)
-
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

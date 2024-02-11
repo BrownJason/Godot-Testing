@@ -29,6 +29,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	get_parent().get_node("Camera2D").global_position = position
 	grav_comp.handle_gravity(self, delta)
 	move_comp.player_movement(self, input_comp.input_horizontal)
 	jump_comp.handle_jump(self, input_comp.get_jump_input(), input_comp.released_jump())
