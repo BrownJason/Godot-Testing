@@ -21,5 +21,18 @@ func player_movement(body: CharacterBody2D, direction: float):
 	body.velocity.x = move_toward(body.velocity.x, direction * speed, velocity_change_speed)
 
 # Enemy Movement functions
-func enemy_chase(body, target, delta):
-	body.velocity = body.global_position.direction_to(target.global_position) * speed
+func enemy_chase(body: CharacterBody2D, target: CharacterBody2D, delta: float):
+	var velocity_change_speed: float = 0.0
+	var direction = Vector2.ZERO
+		
+	if body.is_on_floor():
+		velocity_change_speed = ground_accel if direction.x != 0 else ground_decel
+	else:
+		velocity_change_speed = air_accel if direction.x != 0 else air_decel
+			
+	if target:
+		direction = body.global_position.direction_to(target.global_position)
+	else:
+		direction = Vector2.ZERO
+			
+	body.velocity.x = move_toward(body.velocity.x, direction.x * speed, velocity_change_speed)

@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://drti1djhidh0r" path="res://assest/game_background_1.png" id="1_tviqu"]
 [ext_resource type="Texture2D" uid="uid://dpcev4qc1oi6q" path="res://assest/Terrain (16x16).png" id="1_ujrtm"]
 [ext_resource type="PackedScene" uid="uid://cexfal8mi8hae" path="res://scenes/player/player.tscn" id="2_u43xh"]
-[ext_resource type="PackedScene" uid="uid://csb2yi1ofxq81" path="res://scenes/base_entitys/base_enemy.tscn" id="3_0tmhh"]
 [ext_resource type="PackedScene" uid="uid://c73nrwhn1v4jr" path="res://scenes/ui/ui_health_bar.tscn" id="4_raeig"]
 [ext_resource type="FontFile" uid="uid://c7drv0ctoigoh" path="res://assest/LuckiestGuy-Regular.ttf" id="5_7ku7c"]
+[ext_resource type="PackedScene" uid="uid://828dwgsmhknu" path="res://scenes/enemies/snail.tscn" id="7_7aku3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_g36pn"]
 texture = ExtResource("1_ujrtm")
@@ -508,10 +508,6 @@ scale = Vector2(2, 2)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
-[node name="Base_Enemy" parent="." instance=ExtResource("3_0tmhh")]
-position = Vector2(787, 295)
-scale = Vector2(2, 2)
-
 [node name="AttackInfoLabel" type="Label" parent="."]
 z_index = -1
 offset_left = 663.0
@@ -531,3 +527,6 @@ offset_bottom = 251.0
 text = "Get to close and he will chase"
 label_settings = SubResource("LabelSettings_cqfxq")
 autowrap_mode = 2
+
+[node name="Snail" parent="." instance=ExtResource("7_7aku3")]
+position = Vector2(817, 309)

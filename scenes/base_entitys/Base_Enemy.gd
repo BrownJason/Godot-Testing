@@ -4,46 +4,34 @@ extends CharacterBody2D
 @export var health_comp: HealthComponent
 @export var damage_comp: DamageComponent
 @export var move_comp: MovementComponent
+@export var anim_comp: AnimationComponent
 
 var player: Player
 @onready var sprite_2d = $Sprite2D
 @onready var animation_player = $AnimationPlayer
 @onready var damage_label = $DamageLabel
+
 var body_within_attack_range: bool = false
+
+var stats: EnemyStats = null
 
 signal facing_dir_changed(facing_right: bool)
 
 func _ready():
+	health_comp._max_health = stats.health
+	damage_comp._damage_amount = stats.damage
+	move_comp.speed = stats.speed
+	
 	damage_label.value = health_comp._health
 	damage_label.max_value = health_comp._health
 
 func _process(delta):
-	velocity = Vector2.ZERO
-	if player and global_position.distance_to(player.global_position) > 60:
-		move_comp.enemy_chase(self, player, delta)
-		velocity.y = 0
-	
-	if velocity.x != 0 and !player:
-		move_toward(velocity.x, 0.0, delta)
-		
-	if velocity.x != 0:
-		animation_player.play("move")
-	else:
-		animation_player.play("idle")
+	move_comp.enemy_chase(self, player, delta)
 	
 	move_and_slide()
-	update_facing_dir()
 	
 	if body_within_attack_range and player != null:
 		damage_comp.deal_damage_on_hit(player)
-
-func update_facing_dir():
-	if velocity.x < 0:
-		sprite_2d.flip_h = false
-		emit_signal("facing_dir_changed", false)
-	if velocity.x > 0:
-		sprite_2d.flip_h = true
-		emit_signal("facing_dir_changed", true)
 
 func take_damage(damage):
 	health_comp.take_damage(damage)
