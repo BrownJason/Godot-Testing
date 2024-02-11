@@ -7,6 +7,7 @@ func _ready():
 	health_comp._max_health = stats.health
 	damage_comp._damage_amount = stats.damage
 	move_comp.speed = stats.speed
+	sprite_2d.texture = stats.sprite
 	
 	damage_label.value = health_comp._health
 	damage_label.max_value = health_comp._health

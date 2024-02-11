@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PickupInfo" load_steps=3 format=3 uid="uid://bgg1jom8uuld0"]
+
+[ext_resource type="Script" path="res://resources/pickup_info.gd" id="1_lenck"]
+[ext_resource type="Texture2D" uid="uid://cmgkfqwd7erex" path="res://assest/pixel heart 2.png" id="2_4c62p"]
+
+[resource]
+script = ExtResource("1_lenck")
+pickup_name = "Health"
+value = 20
+sprite = ExtResource("2_4c62p")

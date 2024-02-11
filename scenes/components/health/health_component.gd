@@ -6,6 +6,8 @@ extends Node
 # Damage?
 # Display?
 
+var pickup = preload("res://scenes/pickup/dropped_pickup.tscn")
+
 @export_group("Health Info")
 ## Current health of the entity.
 ## 
@@ -28,6 +30,11 @@ func take_damage(damage: float)  -> void:
 		
 # Kill the entity
 func die() -> void:
+	if get_parent() is Snail: # Change later to any enemy or is_in_group("enemy")
+		var new_pickup = pickup.instantiate()
+		new_pickup.global_position = get_parent().global_position
+		get_parent().get_parent().add_child(new_pickup)
+	
 	get_parent().set_physics_process(false)
 	get_parent().queue_free()
 	

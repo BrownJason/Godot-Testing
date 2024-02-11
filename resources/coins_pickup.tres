@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PickupInfo" load_steps=3 format=3 uid="uid://dmrhlbdqg47jy"]
+
+[ext_resource type="Script" path="res://resources/pickup_info.gd" id="1_oxice"]
+[ext_resource type="Texture2D" uid="uid://bh0vpphgluyva" path="res://assest/coin.png" id="2_0hs6c"]
+
+[resource]
+script = ExtResource("1_oxice")
+pickup_name = "Coins"
+value = 3
+sprite = ExtResource("2_0hs6c")
