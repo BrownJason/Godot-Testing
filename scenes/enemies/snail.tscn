@@ -67,7 +67,7 @@ size = Vector2(33.3333, 12.6667)
 size = Vector2(35, 12)
 
 [node name="Snail" groups=["snail"] instance=ExtResource("1_3a6ll")]
-scale = Vector2(0.75, 0.75)
+scale = Vector2(1.25, 1.25)
 script = ExtResource("2_x12ir")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]

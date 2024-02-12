@@ -154,6 +154,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_comp", "damage_comp", "move_comp", "jump_comp", "grav_comp", "input_comp", "anim_comp", "attack_comp") groups=["Player"]]
 z_index = 1
+scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 17
 script = ExtResource("1_uxxst")
@@ -191,7 +192,6 @@ cooldown_timer = NodePath("CooldownTimer")
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("5_tmp4o")
-speed = 150.0
 ground_accel = 12.0
 ground_decel = 20.0
 air_accel = 12.0
@@ -208,7 +208,6 @@ one_shot = true
 script = ExtResource("8_ndq3x")
 jump_buffer_timer = NodePath("JumpBufferTimer")
 coyote_timer = NodePath("CoyoteTimer")
-jump_velocity = -350.0
 
 [node name="JumpBufferTimer" type="Timer" parent="AdvancedJumpComponent"]
 wait_time = 0.1
