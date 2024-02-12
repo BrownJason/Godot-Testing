@@ -28,6 +28,7 @@ func _physics_process(delta):
 		
 	if health_comp._health <= 0.0 || position.y > 1000.0:
 		ScoreManager.set_enemies(-1)
+		ScoreManager.set_score(2)
 		call_deferred("queue_free")
 
 func take_damage(damage):
@@ -49,3 +50,4 @@ func _on_hit_box_body_exited(body):
 func _on_hurt_box_body_entered(body):
 	if body is Player and body.velocity.y > 0:
 		take_damage(body.damage_comp._damage_amount)
+		body.jump_comp.jump(body)
