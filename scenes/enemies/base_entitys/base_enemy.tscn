@@ -33,10 +33,9 @@ one_shot = true
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("4_ghwme")
 
-[node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("sprite", "anim_player")]
+[node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
 script = ExtResource("5_pe7lp")
 sprite = NodePath("../Sprite2D")
-anim_player = NodePath("")
 
 [node name="GravityComponent" type="Node" parent="."]
 script = ExtResource("6_ow3gw")

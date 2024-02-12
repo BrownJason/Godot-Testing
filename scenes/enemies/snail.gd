@@ -17,15 +17,17 @@ func _ready():
 	dir = 1
 
 func _physics_process(delta):
+	grav_comp.handle_gravity(self, delta)
 	move_comp.enemy_wander(self, dir)
 	anim_comp.handle_snail_move_animation(velocity.x)
 	
 	move_and_slide()
-	
+
 	if position.x <= 10:
-		position.x = 10
+		move_comp.flip_me(self)
 		
-	if health_comp._health <= 0.0:
+	if health_comp._health <= 0.0 || position.y > 1000.0:
+		ScoreManager.set_enemies(-1)
 		call_deferred("queue_free")
 
 func take_damage(damage):

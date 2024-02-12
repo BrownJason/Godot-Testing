@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpmk6i7lk3xfh"]
+
+[ext_resource type="Script" path="res://scenes/ui/score.gd" id="1_5srsp"]
+[ext_resource type="FontFile" uid="uid://c7drv0ctoigoh" path="res://assest/LuckiestGuy-Regular.ttf" id="2_348vq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4mv6t"]
+font = ExtResource("2_348vq")
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_cus2i"]
+font = ExtResource("2_348vq")
+font_size = 24
+
+[node name="Score" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_5srsp")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -297.0
+offset_right = 1.0
+offset_bottom = 123.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(250, 75)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Score:"
+label_settings = SubResource("LabelSettings_4mv6t")
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "00"
+label_settings = SubResource("LabelSettings_cus2i")
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Enemies:"
+label_settings = SubResource("LabelSettings_4mv6t")
+
+[node name="EnemyLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/GridContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "00/00"
+label_settings = SubResource("LabelSettings_cus2i")
+horizontal_alignment = 2

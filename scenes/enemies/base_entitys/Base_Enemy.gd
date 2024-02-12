@@ -24,9 +24,6 @@ func _ready():
 	sprite_2d.texture = stats.sprite
 
 func _physics_process(delta):
-	move_comp.enemy_chase(self, player, delta)
-	grav_comp.handle_gravity(self, delta)
-	
 	move_and_slide()
 	
 	if body_within_attack_range and player != null:

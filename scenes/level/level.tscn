@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b3bo7ooxurhj7"]
+[gd_scene load_steps=17 format=3 uid="uid://b3bo7ooxurhj7"]
 
 [ext_resource type="Script" path="res://scenes/level/ParallaxBackground.gd" id="1_p2306"]
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_qoy44"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cfvu0tfttnmva" path="res://assest/environment/tileset.png" id="6_pdu0v"]
 [ext_resource type="PackedScene" uid="uid://828dwgsmhknu" path="res://scenes/enemies/snail.tscn" id="7_7aku3"]
 [ext_resource type="Script" path="res://scenes/level/PlayerSpawner.gd" id="7_8xolx"]
+[ext_resource type="PackedScene" uid="uid://dpmk6i7lk3xfh" path="res://scenes/ui/score.tscn" id="7_qjtbf"]
 [ext_resource type="Texture2D" uid="uid://vr0l65cyynk0" path="res://assest/environment/Background/props.png" id="7_vm433"]
 [ext_resource type="PackedScene" uid="uid://oqexwrne6gx0" path="res://scenes/checkpoint/checkpoint.tscn" id="10_p06gq"]
 
@@ -1355,6 +1356,7 @@ texture = ExtResource("4_ibl5g")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 position = Vector2(0, 262)
+motion_scale = Vector2(0.8, 0.8)
 motion_mirroring = Vector2(516, 0)
 
 [node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer2"]
@@ -1386,8 +1388,9 @@ stretch_mode = 5
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("6_3jb50")]
-process_mode = 3
 visible = false
+
+[node name="Score" parent="CanvasLayer" instance=ExtResource("7_qjtbf")]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_r8rlu")

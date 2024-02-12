@@ -191,7 +191,6 @@ cooldown_timer = NodePath("CooldownTimer")
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("5_tmp4o")
-speed = 150
 ground_accel = 12.0
 ground_decel = 20.0
 air_accel = 12.0

@@ -23,7 +23,10 @@ func player_movement(body: CharacterBody2D, direction: float):
 func enemy_wander(body: CharacterBody2D, direction: float):
 	if body.is_on_floor():
 		if body.is_on_wall() || !body.ray_cast_2d.is_colliding():
-			body.dir = -body.dir
-			body.ray_cast_2d.position.x = body.ray_cast_2d.position.x * -1
+			flip_me(body)
 	
 	body.velocity.x = speed * direction
+
+func flip_me(body: CharacterBody2D):
+	body.dir = -body.dir
+	body.ray_cast_2d.position.x = body.ray_cast_2d.position.x * -1

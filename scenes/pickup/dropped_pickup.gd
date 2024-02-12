@@ -39,7 +39,7 @@ func _on_body_entered(body):
 	if body is Player:
 		player = body
 		if pickup_dropped == coin:
-			print("Added points to total: ", pickup_dropped.value)
+			ScoreManager.set_score(pickup_dropped.value)
 		else:
 			player.health_comp.heal(pickup_dropped.value)
 			
