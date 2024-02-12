@@ -1,21 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://ctkh3kf8b8ib2"]
 
-[ext_resource type="Texture2D" uid="uid://cgll2gkm7hevt" path="res://assest/environment/Background/back.png" id="1_1470g"]
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_jqn15"]
 [ext_resource type="LabelSettings" uid="uid://bksy0qkc0iei8" path="res://assest/LG_96_YL.tres" id="3_1v20s"]
+[ext_resource type="PackedScene" uid="uid://b3bo7ooxurhj7" path="res://scenes/level/level.tscn" id="4_6t2ya"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_jqn15")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("1_1470g")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15
@@ -26,7 +18,7 @@ grow_vertical = 2
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_top = 96
 theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 96
+theme_override_constants/margin_bottom = 24
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
 layout_mode = 2
@@ -40,6 +32,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Control" type="Control" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Control3" type="Control" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -57,9 +53,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Quit"
 
-[node name="Control3" type="Control" parent="CanvasLayer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
+[node name="level" parent="." instance=ExtResource("4_6t2ya")]
 
 [connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
