@@ -1,7 +1,9 @@
 class_name Snail
 extends BaseEnemy
 
-@export var grav_comp: GravityComponent
+@onready var ray_cast_2d = $RayCast2D
+
+var dir: float
 
 func _ready():
 	stats = load("res://resources/snail.tres")
@@ -12,19 +14,22 @@ func _ready():
 	move_comp.speed = stats.speed
 	sprite_2d.texture = stats.sprite
 	
-	damage_label.value = health_comp._health
-	damage_label.max_value = health_comp._health
+	dir = 1
 
-func _process(delta):
-	move_comp.enemy_chase(self, player, delta)
+func _physics_process(delta):
+	move_comp.enemy_wander(self, dir)
 	anim_comp.handle_snail_move_animation(velocity.x)
-	grav_comp.handle_gravity(self, delta)
 	
 	move_and_slide()
+	
+	if position.x <= 10:
+		position.x = 10
+		
+	if health_comp._health <= 0.0:
+		call_deferred("queue_free")
 
 func take_damage(damage):
 	health_comp.take_damage(damage)
-	damage_label.value = health_comp._health
 
 func _on_area_2d_body_entered(body):
 	player = body
@@ -38,3 +43,7 @@ func _on_hit_box_body_entered(body):
 func _on_hit_box_body_exited(body):
 	if body == player:
 		body_within_attack_range = false
+
+func _on_hurt_box_body_entered(body):
+	if body is Player and body.velocity.y > 0:
+		take_damage(body.damage_comp._damage_amount)

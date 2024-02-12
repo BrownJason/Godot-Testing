@@ -23,7 +23,7 @@ func deal_damage_on_hit(body: CharacterBody2D):
 		self._can_deal_damage = false
 
 # 
-func increase_damage_by_level(level: int) -> float:
+func increase_damage_by_level() -> float:
 	_damage_amount *= 1.2
 	return _damage_amount
 

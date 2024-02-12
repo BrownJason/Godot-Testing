@@ -46,7 +46,12 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	if position.y >= 1000:
-		get_tree().reload_current_scene()
+		position = get_parent().get_node("PlayerSpawner").position
+		
+	if position.x <= 10:
+		position.x = 10
+		
+	emit_signal("adjust_ui_health", health_comp._health)
 
 func _on_hit_box_component_body_entered(body):
 	enemy = body

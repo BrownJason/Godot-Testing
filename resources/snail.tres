@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_msblh")
-speed = 50.0
+speed = 25.0
 health = 10
 damage = 5
 sprite = ExtResource("2_4aied")

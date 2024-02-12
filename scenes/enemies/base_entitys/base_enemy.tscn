@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://csb2yi1ofxq81"]
+[gd_scene load_steps=8 format=3 uid="uid://csb2yi1ofxq81"]
 
 [ext_resource type="Script" path="res://scenes/enemies/base_entitys/Base_Enemy.gd" id="1_df8ng"]
 [ext_resource type="Script" path="res://scenes/components/health/health_component.gd" id="2_xpebc"]
@@ -6,26 +6,12 @@
 [ext_resource type="Script" path="res://scenes/components/movement/movement_component.gd" id="4_ghwme"]
 [ext_resource type="Script" path="res://scenes/components/animation/animtation_component.gd" id="5_pe7lp"]
 [ext_resource type="PackedScene" uid="uid://crjctvja1x4ew" path="res://scenes/components/hit_box/hit_box_enemy_comp.tscn" id="6_frbpc"]
+[ext_resource type="Script" path="res://scenes/components/gravity/gravity_component.gd" id="6_ow3gw"]
 
-[sub_resource type="Gradient" id="Gradient_qy08l"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0, 0, 0, 0.533333)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_iutdi"]
-gradient = SubResource("Gradient_qy08l")
-width = 50
-
-[sub_resource type="Gradient" id="Gradient_oq6cq"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_bqkx0"]
-gradient = SubResource("Gradient_oq6cq")
-width = 50
-
-[node name="Base_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("health_comp", "damage_comp", "move_comp", "anim_comp")]
+[node name="Base_Enemy" type="CharacterBody2D" node_paths=PackedStringArray("grav_comp", "health_comp", "damage_comp", "move_comp", "anim_comp")]
 collision_layer = 4
 script = ExtResource("1_df8ng")
+grav_comp = NodePath("GravityComponent")
 health_comp = NodePath("HealthComponent")
 damage_comp = NodePath("DamageComponent")
 move_comp = NodePath("MovementComponent")
@@ -46,41 +32,20 @@ one_shot = true
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("4_ghwme")
-speed = 75
 
-[node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+[node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("sprite", "anim_player")]
 script = ExtResource("5_pe7lp")
 sprite = NodePath("../Sprite2D")
+anim_player = NodePath("")
+
+[node name="GravityComponent" type="Node" parent="."]
+script = ExtResource("6_ow3gw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 hframes = 10
 
-[node name="ChaseZone" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 2
-
-[node name="DamageLabel" type="TextureProgressBar" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -24.0
-offset_top = -17.0
-offset_right = 26.0
-offset_bottom = -12.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1, 4)
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_under = SubResource("GradientTexture1D_iutdi")
-texture_progress = SubResource("GradientTexture1D_bqkx0")
-
 [node name="HitBox" parent="." node_paths=PackedStringArray("enemy") instance=ExtResource("6_frbpc")]
 enemy = NodePath("..")
 
-[connection signal="body_entered" from="ChaseZone" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="ChaseZone" to="." method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
 [connection signal="body_exited" from="HitBox" to="." method="_on_hit_box_body_exited"]

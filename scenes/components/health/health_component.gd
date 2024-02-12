@@ -26,7 +26,7 @@ func _ready():
 func take_damage(damage: float)  -> void:
 	_health -= damage
 	if _health <= 0:
-		die()
+		call_deferred("die")
 		
 # Kill the entity
 func die() -> void:
@@ -35,13 +35,10 @@ func die() -> void:
 		new_pickup.global_position = get_parent().global_position
 		get_parent().get_parent().add_child(new_pickup)
 	
-	get_parent().set_physics_process(false)
-	get_parent().queue_free()
-	
 # Heal for a set amount, no more than max health
 func heal(heal_amount: float) -> void:
 	_health += heal_amount
-	if _health > _max_health:
+	if _health >= _max_health:
 		_health = _max_health
 
 # Increase health on level up

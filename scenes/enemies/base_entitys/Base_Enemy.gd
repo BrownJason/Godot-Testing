@@ -1,6 +1,7 @@
 class_name BaseEnemy
 extends CharacterBody2D
 
+@export var grav_comp: GravityComponent
 @export var health_comp: HealthComponent
 @export var damage_comp: DamageComponent
 @export var move_comp: MovementComponent
@@ -9,7 +10,6 @@ extends CharacterBody2D
 var player: Player
 @onready var sprite_2d = $Sprite2D
 @onready var animation_player = $AnimationPlayer
-@onready var damage_label = $DamageLabel
 
 var body_within_attack_range: bool = false
 
@@ -22,12 +22,10 @@ func _ready():
 	damage_comp._damage_amount = stats.damage
 	move_comp.speed = stats.speed
 	sprite_2d.texture = stats.sprite
-	
-	damage_label.value = health_comp._health
-	damage_label.max_value = health_comp._health
 
-func _process(delta):
+func _physics_process(delta):
 	move_comp.enemy_chase(self, player, delta)
+	grav_comp.handle_gravity(self, delta)
 	
 	move_and_slide()
 	
@@ -36,7 +34,6 @@ func _process(delta):
 
 func take_damage(damage):
 	health_comp.take_damage(damage)
-	damage_label.value = health_comp._health
 
 func _on_area_2d_body_entered(body):
 	player = body

@@ -1,18 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://828dwgsmhknu"]
+[gd_scene load_steps=12 format=3 uid="uid://828dwgsmhknu"]
 
 [ext_resource type="PackedScene" uid="uid://csb2yi1ofxq81" path="res://scenes/enemies/base_entitys/base_enemy.tscn" id="1_3a6ll"]
 [ext_resource type="Script" path="res://scenes/enemies/snail.gd" id="2_x12ir"]
-[ext_resource type="Script" path="res://scenes/components/gravity/gravity_component.gd" id="3_eg6tk"]
 [ext_resource type="Texture2D" uid="uid://bh4gri7usnvtg" path="res://assest/snail.png" id="3_r0a6j"]
 [ext_resource type="Script" path="res://scenes/player/facing_dir.gd" id="4_nscx8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hdn64"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0g1cp"]
-size = Vector2(321, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yfdo3"]
-size = Vector2(35, 20)
 
 [sub_resource type="Animation" id="Animation_i7b77"]
 length = 0.001
@@ -68,50 +61,48 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oxj85"]
-size = Vector2(33.3333, 21.3333)
+size = Vector2(33.3333, 12.6667)
 
-[node name="Snail" node_paths=PackedStringArray("grav_comp") instance=ExtResource("1_3a6ll")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yfdo3"]
+size = Vector2(35, 12)
+
+[node name="Snail" instance=ExtResource("1_3a6ll")]
+scale = Vector2(0.75, 0.75)
 script = ExtResource("2_x12ir")
-grav_comp = NodePath("GravityComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_hdn64")
 
-[node name="MovementComponent" parent="." index="3"]
-speed = 25
-
 [node name="AnimationComponent" parent="." index="4" node_paths=PackedStringArray("anim_player")]
 anim_player = NodePath("../AnimationPlayer")
-
-[node name="GravityComponent" type="Node" parent="." index="5"]
-script = ExtResource("3_eg6tk")
 
 [node name="Sprite2D" parent="." index="6"]
 texture = ExtResource("3_r0a6j")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseZone" index="0"]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_0g1cp")
-
-[node name="HitBox" parent="." index="9" node_paths=PackedStringArray("facing_collision_dir")]
-facing_collision_dir = NodePath("FacingCollisionShape")
-
-[node name="FacingCollisionShape" type="CollisionShape2D" parent="HitBox" index="0"]
-position = Vector2(1.5, 0)
-shape = SubResource("RectangleShape2D_yfdo3")
-script = ExtResource("4_nscx8")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 libraries = {
 "": SubResource("AnimationLibrary_6su3h")
 }
 autoplay = "idle"
 
-[node name="HurtBox" type="Area2D" parent="." index="11"]
+[node name="HurtBox" type="Area2D" parent="." index="8"]
 collision_layer = 64
-collision_mask = 32
+collision_mask = 34
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
-position = Vector2(2, 4.76837e-07)
+position = Vector2(1, -8)
 shape = SubResource("RectangleShape2D_oxj85")
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="9"]
+position = Vector2(22, 0)
+
+[node name="HitBox" parent="." index="10" node_paths=PackedStringArray("facing_collision_dir")]
+facing_collision_dir = NodePath("FacingCollisionShape")
+
+[node name="FacingCollisionShape" type="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(1.5, 4)
+shape = SubResource("RectangleShape2D_yfdo3")
+script = ExtResource("4_nscx8")
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
