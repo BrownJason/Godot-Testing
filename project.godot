@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SceneManager="*res://singletons/scene_manager.gd"
 ScoreManager="*res://singletons/score_manager.gd"
+SceneManager="*res://singletons/scene_manager.gd"
 
 [display]
 

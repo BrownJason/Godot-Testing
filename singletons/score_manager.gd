@@ -4,7 +4,13 @@ var score: int = 0
 var enemies: int = 0
 var max_enemies: int = 0
 
+func reset_enemies() -> void:
+	max_enemies = 0
+	enemies = 0
 
+func reset_score() -> void:
+	score = 0
+	
 func set_score(v: int):
 	score += v
 	

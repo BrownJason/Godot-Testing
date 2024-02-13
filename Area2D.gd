@@ -22,6 +22,7 @@ func _process(delta):
 			moving_platform.set_moving()
 		else:
 			SceneManager.set_platform_active(false)
+			moving_platform._exit_tree()
 			
 		
 

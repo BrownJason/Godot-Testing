@@ -9,6 +9,7 @@ func level_complete():
 	get_parent().set_physics_process(false)
 	
 	if get_tree().current_scene is MainMenu:
-		get_tree().reload_current_scene()
-		
+		SceneManager.load_main_scene()
+	else:
+		SceneManager.load_next_level_scene()
 	
