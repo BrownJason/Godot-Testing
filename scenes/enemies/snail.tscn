@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://828dwgsmhknu"]
+[gd_scene load_steps=13 format=3 uid="uid://828dwgsmhknu"]
 
 [ext_resource type="PackedScene" uid="uid://csb2yi1ofxq81" path="res://scenes/enemies/base_entitys/base_enemy.tscn" id="1_3a6ll"]
 [ext_resource type="Script" path="res://scenes/enemies/snail.gd" id="2_x12ir"]
@@ -53,9 +53,14 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 }
 
+[sub_resource type="Animation" id="Animation_fkcio"]
+resource_name = "die"
+length = 0.6
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6su3h"]
 _data = {
 "RESET": SubResource("Animation_i7b77"),
+"die": SubResource("Animation_fkcio"),
 "idle": SubResource("Animation_kxac1"),
 "move": SubResource("Animation_totkd")
 }

@@ -29,7 +29,9 @@ func _physics_process(delta):
 	if health_comp._health <= 0.0 || position.y > 1000.0:
 		ScoreManager.set_enemies(-1)
 		ScoreManager.set_score(2)
-		call_deferred("queue_free")
+		set_physics_process(false)
+		queue_free()
+		hide()
 
 func take_damage(damage):
 	health_comp.take_damage(damage)

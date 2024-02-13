@@ -7,6 +7,7 @@ extends Node
 # Display?
 
 var pickup = preload("res://scenes/pickup/dropped_pickup.tscn")
+var explosion = preload("res://scenes/asset_scenes/explosion.tscn")
 
 @export_group("Health Info")
 ## Current health of the entity.
@@ -34,6 +35,10 @@ func die() -> void:
 		var new_pickup = pickup.instantiate()
 		new_pickup.global_position = get_parent().global_position
 		get_parent().get_parent().add_child(new_pickup)
+		
+		var new_exp = explosion.instantiate()
+		new_exp.global_position = get_parent().global_position
+		get_parent().get_parent().add_child(new_exp)
 	
 # Heal for a set amount, no more than max health
 func heal(heal_amount: float) -> void:
