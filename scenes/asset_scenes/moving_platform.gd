@@ -3,8 +3,8 @@ extends CharacterBody2D
 
 @export var startpoint: Marker2D
 @export var endpoint: Marker2D
+@export var speed: float = 8.0
 
-var speed: float = 8.0
 var _tween: Tween
 	
 func _exit_tree():
