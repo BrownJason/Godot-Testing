@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://buo0j7x3atfpi"]
+
+[ext_resource type="Script" path="res://Area2D.gd" id="1_24hhm"]
+[ext_resource type="Texture2D" uid="uid://dy84xu4ylq7q7" path="res://assest/environment/Props/crank-down.png" id="2_du2jc"]
+[ext_resource type="Texture2D" uid="uid://cklvp0tyn4gqh" path="res://assest/environment/Props/crank-up.png" id="3_20srk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lmngm"]
+size = Vector2(16, 15)
+
+[node name="Lever" type="Area2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_24hhm")
+
+[node name="CrankDown" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_du2jc")
+
+[node name="CrankUp" type="Sprite2D" parent="."]
+texture = ExtResource("3_20srk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 0.5)
+shape = SubResource("RectangleShape2D_lmngm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

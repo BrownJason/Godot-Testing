@@ -1,13 +1,11 @@
-[gd_scene load_steps=38 format=3 uid="uid://b3bo7ooxurhj7"]
+[gd_scene load_steps=36 format=3 uid="uid://b3bo7ooxurhj7"]
 
-[ext_resource type="Script" path="res://scenes/level/ParallaxBackground.gd" id="1_p2306"]
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_qoy44"]
 [ext_resource type="Texture2D" uid="uid://dpcev4qc1oi6q" path="res://assest/Terrain (16x16).png" id="1_ujrtm"]
-[ext_resource type="Texture2D" uid="uid://cgll2gkm7hevt" path="res://assest/environment/Background/back.png" id="4_ibl5g"]
-[ext_resource type="Texture2D" uid="uid://cerwxei5lx7m7" path="res://assest/environment/Background/middle.png" id="5_va23b"]
+[ext_resource type="PackedScene" uid="uid://cvpmyg372sftb" path="res://scenes/player/player_spawner.tscn" id="2_pwuvy"]
+[ext_resource type="PackedScene" uid="uid://burh1jfqbf7nt" path="res://scenes/parallax_background.tscn" id="3_4auuo"]
 [ext_resource type="PackedScene" uid="uid://dkall1krq7co2" path="res://scenes/pause_menu/pause_menu.tscn" id="6_3jb50"]
 [ext_resource type="Texture2D" uid="uid://cfvu0tfttnmva" path="res://assest/environment/tileset.png" id="6_pdu0v"]
-[ext_resource type="Script" path="res://scenes/level/PlayerSpawner.gd" id="7_8xolx"]
 [ext_resource type="PackedScene" uid="uid://dpmk6i7lk3xfh" path="res://scenes/ui/score.tscn" id="7_qjtbf"]
 [ext_resource type="Texture2D" uid="uid://vr0l65cyynk0" path="res://assest/environment/Background/props.png" id="7_vm433"]
 [ext_resource type="PackedScene" uid="uid://oqexwrne6gx0" path="res://scenes/checkpoint/checkpoint.tscn" id="10_p06gq"]
@@ -1442,58 +1440,9 @@ fill_from = Vector2(0.5, 0.5)
 [node name="level" type="Node2D"]
 script = ExtResource("1_qoy44")
 
-[node name="PlayerSpawner" type="Marker2D" parent="."]
-position = Vector2(159, 587)
-script = ExtResource("7_8xolx")
+[node name="PlayerSpawner" parent="." instance=ExtResource("2_pwuvy")]
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-script = ExtResource("1_p2306")
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2(1920, 0)
-
-[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -715.0
-offset_top = -106.0
-offset_right = 1205.0
-offset_bottom = 974.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("4_ibl5g")
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(0, 262)
-motion_scale = Vector2(0.8, 0.8)
-motion_mirroring = Vector2(516, 0)
-
-[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer2"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -767.0
-offset_top = 84.0
-offset_right = 1153.0
-offset_bottom = 1164.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_va23b")
-stretch_mode = 5
-
-[node name="TextureRect2" type="TextureRect" parent="ParallaxBackground/ParallaxLayer2"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 265.0
-offset_top = 84.0
-offset_right = 2185.0
-offset_bottom = 1164.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("5_va23b")
-stretch_mode = 5
+[node name="ParallaxBackground" parent="." instance=ExtResource("3_4auuo")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

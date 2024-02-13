@@ -23,6 +23,7 @@ signal adjust_ui_health(health: float)
 var enemy= null
 var is_hurt: bool = false
 var is_crouching: bool = false
+var can_climb: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	emit_signal("adjust_ui_health", health_comp._health)
@@ -30,15 +31,23 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	get_parent().get_node("Camera2D").global_position = position
-	grav_comp.handle_gravity(self, delta)
+	if !can_climb:
+		grav_comp.handle_gravity(self, delta)
+	elif can_climb:
+		move_comp.climb_ladder(self, input_comp.input_vertical)
 	move_comp.player_movement(self, input_comp.input_horizontal)
 	jump_comp.handle_jump(self, input_comp.get_jump_input(), input_comp.released_jump())
 	is_crouching = anim_comp.handle_courch_animation()
-	if not is_crouching:
+	
+	if not is_crouching and not can_climb:
 		anim_comp.handle_move_animation(input_comp.input_horizontal)
 		anim_comp.handle_jump_animation(jump_comp.is_going_up, grav_comp.is_falling)
 	elif is_crouching and is_on_floor():
 		velocity = Vector2.ZERO
+	elif can_climb:
+		anim_comp.handle_climb(input_comp.input_vertical, can_climb, input_comp.is_climbing())
+		anim_comp.handle_climb_idle(input_comp.is_climbing())
+		
 	emit_signal("facing_dir_changed", !sprite_2d.flip_h)
 	
 	attack_comp.shoot_bullet(sprite_2d.flip_h, self)

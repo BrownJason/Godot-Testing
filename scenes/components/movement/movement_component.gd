@@ -19,6 +19,15 @@ func player_movement(body: CharacterBody2D, direction: float):
 	
 	body.velocity.x = move_toward(body.velocity.x, direction * speed, velocity_change_speed)
 
+func climb_ladder(body: CharacterBody2D, direction: float):
+	var velocity_change_speed: float = 0.0
+	if body.is_on_floor():
+		velocity_change_speed = ground_accel if direction != 0 else ground_decel
+	else:
+		velocity_change_speed = air_accel if direction != 0 else air_decel
+		
+	body.velocity.y = move_toward(body.velocity.y, direction * speed, velocity_change_speed)
+
 # Enemy Movement functions
 func enemy_wander(body: CharacterBody2D, direction: float):
 	if body.is_on_floor():

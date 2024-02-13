@@ -5,6 +5,17 @@ extends Node
 @export var sprite: Sprite2D
 @export var anim_player: AnimationPlayer
 
+func handle_climb(move_direction: float, can_climb: bool, is_climbing: bool):
+	if move_direction == 0:
+		return
+		
+	if can_climb and is_climbing:
+		anim_player.play("climb")
+
+func handle_climb_idle(is_climbing: bool):
+	if !is_climbing:
+		anim_player.play("climb_idle")
+
 func handle_horizontal_flip(move_direction: float):
 	if move_direction == 0:
 		return
